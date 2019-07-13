@@ -1,0 +1,48 @@
+# The Concept of FNN
+
+1. multiple inputs & single nueron : it is also possible to input the activated data
+
+	sigma = w0 * x0 + w1 * x1 + w2 * x2 ..... + wn-1 * xn-1 + wn * b
+
+	Note : the weight of bias is trainable
+
+2. multiple neurons 
+	sigma0 = w00 * x00 + w01 * x01 + w02 * x02 ..... + w0n-1 * x0n-1 + w0n * b
+	sigma1 = w10 * x10 + w11 * x11 + w12 * x12 ..... + w1n-1 * x1n-1 + w1n * b
+	sigma2 = w20 * x20 + w21 * x21 + w22 * x22 ..... + w2n-1 * x2n-1 + w2n * b
+	...
+
+	sigma = W * x 
+	Note: convert to simple matrix-vector multiplication
+
+3. Forwad propagation of Multiple Layers
+
+	sigma0 = w0 * x + w0(b) * b
+
+	y = f1(sigma1) = f1(w1 * f0(sigma0) + w1(b) * b)
+
+4. training
+	
+	- random number initialization
+
+	- E = 0.5 * (y_target - y) ^2
+	- W_updated = W - alpha * dE/dw
+
+		W0,updated = W0 - alpha * dE/dw0
+
+		dE/dw0 = dE/dy * dy / dw0 : chain rule
+
+5. Gradient Back-Propagation
+	dy / dw1 = df1 / d(sigma1) * d(sigma1) / dw1 = df1 / d(sigma1) * f0   : chain rule
+	dy/dw(b)1 = df1 / d(sigma1) * d(sigma1) / dw(b)1 = df1 / d(sigma1) * b
+
+	f0 : output of previous neuron
+	b : constant
+
+	dy/dw0 = (df1 / d(sigma1)) * (d(sigma1) / df0) * (df0 / dsigma0) * (dsigma0 / dw0) = (df1 / d(sigma1)) * w1 * (df0 / d(sigma0)) * x;
+	dy/dwb0 = (df1 / d(sigma1)) * (d(sigma1) / df0) * (df0 / dsigma0) * (dsigma0 / dwb0) = (df1 / d(sigma1)) * w1 * (df0 / d(sigma0)) * b;
+
+6. Multiple output (in the case of 2 outputs)
+	E = 0.5 *{ (y0_target - y0)^2 + (y1_target - y1)^2 } // sum the error of each output
+	
+	dE/dwi = (dE/dy0 * dy0/dwi) + (dE/dy1 * dy1/dwi)
