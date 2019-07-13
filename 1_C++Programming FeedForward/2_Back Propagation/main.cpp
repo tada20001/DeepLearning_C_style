@@ -18,7 +18,7 @@ public:
 	{
 		input_ = _input;
 
-		const double sigma = w_ * _input + b_;
+		const double sigma = w_ * input_ + b_;
 		
 		output_ = getAct(sigma);
 
