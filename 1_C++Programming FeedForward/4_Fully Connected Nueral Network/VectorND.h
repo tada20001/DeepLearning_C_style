@@ -56,7 +56,7 @@ public:
 public:
 	void operator = (const VectorND<TT>& from)
 	{
-		if (from.num_dimension_ != num_dimension_)
+		if (from.num_dimension_ != num_dimension_)  
 		{
 			num_dimension_ = from.num_dimension_;
 
@@ -187,6 +187,7 @@ public:
 	{
 		assert(start_ix_this >= 0);
 		assert(start_ix_this + num <= num_dimension_);
+
 
 		assert(start_ix_source >= 0);
 		assert(start_ix_source + num <= source.num_dimension_);
